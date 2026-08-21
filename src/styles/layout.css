@@ -1,0 +1,229 @@
+.gwboard-shell,
+.board-host,
+.board-viewport {
+  position: absolute;
+  inset: 0;
+}
+
+.gwboard-shell {
+  isolation: isolate;
+  background: var(--canvas);
+}
+
+.board-host {
+  z-index: 0;
+}
+
+.board-viewport {
+  overflow: hidden;
+  background-color: var(--canvas);
+  touch-action: none;
+}
+
+.board-viewport::before {
+  position: absolute;
+  inset: 0;
+  content: '';
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.board-viewport[data-background='ruled']::before {
+  opacity: 0.72;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    rgba(99, 128, 161, 0.23) 32px
+  );
+  background-position: 0 12px;
+}
+
+.board-viewport[data-background='grid']::before {
+  opacity: 0.76;
+  background-image:
+    linear-gradient(rgba(99, 128, 161, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 128, 161, 0.2) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.board-viewport[data-background='dots']::before {
+  opacity: 0.78;
+  background-image: radial-gradient(circle, rgba(126, 153, 185, 0.55) 1.2px, transparent 1.35px);
+  background-size: 28px 28px;
+}
+
+.ink-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+}
+
+.glass-panel {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(22px) saturate(1.16);
+  -webkit-backdrop-filter: blur(22px) saturate(1.16);
+}
+
+.back-button {
+  position: fixed;
+  z-index: 20;
+  top: calc(24px + var(--safe-top));
+  left: calc(18px + var(--safe-left));
+  display: grid;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  place-items: center;
+  border-radius: 18px;
+  color: #c8d0da;
+  transition: color 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+.back-button:hover {
+  color: var(--text);
+  background: var(--surface-muted);
+}
+
+.back-button:active {
+  transform: scale(0.96);
+}
+
+.top-controls {
+  position: fixed;
+  z-index: 20;
+  top: calc(24px + var(--safe-top));
+  right: calc(18px + var(--safe-right));
+  display: flex;
+  height: 54px;
+  padding: 5px;
+  align-items: center;
+  gap: 2px;
+  border-radius: 18px;
+}
+
+.top-control {
+  display: grid;
+  width: 43px;
+  height: 43px;
+  padding: 0;
+  place-items: center;
+  border-radius: 13px;
+  background: transparent;
+  color: #bdc6d1;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.top-control .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.top-control:hover:not(:disabled) {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+.top-control:disabled {
+  color: #59616d;
+  cursor: default;
+}
+
+.stage-status {
+  position: fixed;
+  z-index: 8;
+  bottom: calc(22px + var(--safe-bottom));
+  left: calc(22px + var(--safe-left));
+  display: flex;
+  height: 34px;
+  padding: 0 12px;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  background: rgba(17, 20, 25, 0.72);
+  color: var(--text-dim);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(12px);
+}
+
+.stage-status > span:first-child {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(76, 166, 255, 0.8);
+}
+
+.stage-status strong {
+  color: #b7c3d1;
+  font-weight: 650;
+}
+
+.focus-exit {
+  position: fixed;
+  z-index: 40;
+  top: calc(20px + var(--safe-top));
+  right: calc(20px + var(--safe-right));
+  display: none;
+  min-height: 44px;
+  padding: 0 15px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 15px;
+  color: var(--text-muted);
+  background: rgba(18, 21, 26, 0.85);
+}
+
+.focus-exit .icon {
+  width: 19px;
+  height: 19px;
+}
+
+.focus-exit span {
+  font-size: 13px;
+}
+
+.gwboard-shell.is-focus-mode .back-button,
+.gwboard-shell.is-focus-mode .top-controls,
+.gwboard-shell.is-focus-mode .bottom-dock,
+.gwboard-shell.is-focus-mode .stage-status,
+.gwboard-shell.is-focus-mode .side-panel,
+.gwboard-shell.is-focus-mode .popover-panel {
+  display: none;
+}
+
+.gwboard-shell.is-focus-mode .focus-exit {
+  display: flex;
+}
+
+.toast-region {
+  position: fixed;
+  z-index: 80;
+  left: 50%;
+  bottom: calc(104px + var(--safe-bottom));
+  max-width: min(420px, calc(100vw - 32px));
+  min-height: 42px;
+  padding: 11px 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(28, 32, 39, 0.96);
+  box-shadow: var(--shadow-lg);
+  color: #dce3eb;
+  font-size: 13px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 12px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.toast-region.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}

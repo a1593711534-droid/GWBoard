@@ -1,0 +1,20 @@
+{
+  "name": "GWBoard 無限白板",
+  "short_name": "GWBoard",
+  "description": "單頁無限白板介面",
+  "lang": "zh-Hant",
+  "start_url": "/GWBoard/",
+  "scope": "/GWBoard/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#050607",
+  "theme_color": "#050607",
+  "icons": [
+    {
+      "src": "app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

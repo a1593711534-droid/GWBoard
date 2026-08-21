@@ -1,0 +1,29 @@
+:root {
+  color-scheme: dark;
+  --canvas: #050607;
+  --canvas-soft: #080a0d;
+  --surface: rgba(20, 23, 28, 0.94);
+  --surface-strong: rgba(25, 29, 35, 0.98);
+  --surface-muted: rgba(37, 41, 48, 0.92);
+  --surface-hover: rgba(58, 64, 74, 0.72);
+  --border: rgba(130, 144, 161, 0.34);
+  --border-soft: rgba(130, 144, 161, 0.2);
+  --text: #f4f6f8;
+  --text-muted: #9aa5b4;
+  --text-dim: #6f7a89;
+  --accent: #4ca6ff;
+  --accent-bright: #6ab6ff;
+  --accent-soft: rgba(76, 166, 255, 0.16);
+  --danger: #ff5f57;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --shadow-lg: 0 22px 70px rgba(0, 0, 0, 0.48), 0 4px 16px rgba(0, 0, 0, 0.3);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Noto Sans TC", "PingFang TC", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
