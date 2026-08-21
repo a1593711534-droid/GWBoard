@@ -72,4 +72,35 @@ test.describe('GWBoard stage one shell', () => {
     await expect(page.locator('[data-testid="tool-palette"]')).toBeVisible();
     await expect(page.getByRole('navigation', { name: '空白畫布快捷功能' })).toBeVisible();
   });
+
+  test('keeps the core controls reachable on a phone portrait viewport', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.reload();
+
+    const layout = await page.evaluate(() => {
+      const palette = document.querySelector('[data-testid="tool-palette"]').getBoundingClientRect();
+      const dock = document.querySelector('.bottom-dock').getBoundingClientRect();
+      return {
+        clientWidth: document.documentElement.clientWidth,
+        scrollWidth: document.documentElement.scrollWidth,
+        palette: { left: palette.left, right: palette.right, top: palette.top },
+        dock: { left: dock.left, right: dock.right, bottom: dock.bottom },
+      };
+    });
+
+    expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth);
+    expect(layout.palette.left).toBeGreaterThanOrEqual(0);
+    expect(layout.palette.right).toBeLessThanOrEqual(390);
+    expect(layout.palette.top).toBeGreaterThanOrEqual(0);
+    expect(layout.dock.left).toBeGreaterThanOrEqual(0);
+    expect(layout.dock.right).toBeLessThanOrEqual(390);
+    expect(layout.dock.bottom).toBeLessThanOrEqual(844);
+
+    await page.getByRole('button', { name: '圓規', exact: true }).click();
+    await expect(page.getByRole('button', { name: '圓規', exact: true })).toHaveAttribute('aria-pressed', 'true');
+
+    await page.getByRole('button', { name: '加入', exact: true }).click();
+    await expect(page.getByRole('complementary', { name: '加入內容' })).toBeVisible();
+    await page.getByRole('button', { name: '關閉加入內容面板' }).click();
+  });
 });
