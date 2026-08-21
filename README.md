@@ -34,7 +34,7 @@ npm run test:e2e
 
 ## 部署
 
-正式網址預定為 [GWBoard GitHub Pages](https://a1593711534-droid.github.io/GWBoard/)。`main` 與本階段檢查點分支會透過 GitHub Actions 建置並發布 `dist/`。
+正式網址預定為 [GWBoard GitHub Pages](https://a1593711534-droid.github.io/GWBoard/)。本階段檢查點分支會執行完整建置與瀏覽器驗證；通過後由 `main` 發布 `dist/`。
 
 ## 專案界線
 
